@@ -1,0 +1,52 @@
+
+@Override
+    protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+
+    lt = findViewById(R.id.layout);
+    txt = findViewById(R.id.texto);
+    }
+    /*
+    MOSTRAR ENTRADA DE DIALOGO DO GOOGLE SPEECH
+    */
+    private void promptSpeechInput(){
+    Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+    intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+    RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+    intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+    intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "DIGA ALGO");
+
+    try{
+    startActivityForResult(intent, REQ_CODE_SPEECH_INPUT);
+
+    }catch (ActivityNotFoundException e){
+    Toast.makeText(getApplicationContext(),
+    "Desculpe, dispositivo sem este recurso",
+    Toast.LENGTH_LONG).show();
+    }
+
+    }
+
+    /*
+    RECEBE ENTRADA DO GOOGLE SPEECH
+    */
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+    super.onActivityResult(requestCode, resultCode, data);
+
+    if(requestCode == REQ_CODE_SPEECH_INPUT){
+    if(resultCode == RESULT_OK && null != data){
+    ArrayList<String> resultado;
+    resultado = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+
+    String mensagem = resultado.get(0);
+    txt.setText(mensagem);
+    }
+    }
+    }
+
+    public void falar(View view) {
+
+    }
+    }
