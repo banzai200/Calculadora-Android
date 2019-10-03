@@ -1,52 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
 
-@Override
-    protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Potência"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    lt = findViewById(R.id.layout);
-    txt = findViewById(R.id.texto);
-    }
-    /*
-    MOSTRAR ENTRADA DE DIALOGO DO GOOGLE SPEECH
-    */
-    private void promptSpeechInput(){
-    Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-    intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-    RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-    intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
-    intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "DIGA ALGO");
+    <EditText
+        android:id="@+id/p"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
-    try{
-    startActivityForResult(intent, REQ_CODE_SPEECH_INPUT);
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Resistência"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    }catch (ActivityNotFoundException e){
-    Toast.makeText(getApplicationContext(),
-    "Desculpe, dispositivo sem este recurso",
-    Toast.LENGTH_LONG).show();
-    }
+    <EditText
+        android:id="@+id/r"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
-    }
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tensão"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    /*
-    RECEBE ENTRADA DO GOOGLE SPEECH
-    */
+    <EditText
+        android:id="@+id/t"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
-    super.onActivityResult(requestCode, resultCode, data);
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Corrente"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    if(requestCode == REQ_CODE_SPEECH_INPUT){
-    if(resultCode == RESULT_OK && null != data){
-    ArrayList<String> resultado;
-    resultado = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-
-    String mensagem = resultado.get(0);
-    txt.setText(mensagem);
-    }
-    }
-    }
-
-    public void falar(View view) {
-
-    }
-    }
+    <EditText
+        android:id="@+id/c"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    0
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Falar calculo"
+        android:onClick="Falar"
+        android:background="@android:color/holo_blue_dark"
+        />
+</LinearLayout>
