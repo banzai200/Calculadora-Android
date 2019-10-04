@@ -86,41 +86,41 @@ public class MainActivity extends AppCompatActivity {
                                 if(porn<2){
                                 Double valor = Double.parseDouble(dammit[i++]);
                                 yea.setPotencia(valor);
-                                potencia.setText(valor.toString());
+                                potencia.setText(dammit[i++]);
                                 porn++;
                             }break;}
                             case "tensão": {
                                 if(porn<2){
                                 Double valor = Double.parseDouble(dammit[i++]);
                                 yea.setTensao(valor);
-                                tensao.setText(valor.toString());
+                                tensao.setText(dammit[i++]);
                                 porn++;
                             }break;}
                             case "corrente": {
                                 if(porn<2){
                                 Double valor = Double.parseDouble(dammit[i++]);
                                 yea.setCorrente(valor);
-                                corrente.setText(valor.toString());
+                                corrente.setText(dammit[i++]);
                                 porn++;
                             }break;}
                             case "resistência": {
                                 if(porn<2){
                                 Double valor = Double.parseDouble(dammit[i++]);
                                 yea.setResistencia(valor);
-                                resistencia.setText(valor.toString());
+                                resistencia.setText(dammit[i++]);
                                 porn++;
                             }break;}
-                            case "calcullar": {
+                            case "calcular": {
                             if(porn==2){
                                 Double pot = yea.getPotencia();
                                 Double res = yea.getResistencia();
                                 Double cor = yea.getCorrente();
                                 Double ten = yea.getTensao();
 
-                                potencia.setText(String.format(pot.toString()));
-                                resistencia.setText(String.format(res.toString()));
-                                corrente.setText(String.format(pot.toString()));
-                                tensao.setText(String.format(ten.toString()));
+                                potencia.setText(pot.toString());
+                                resistencia.setText(res.toString());
+                                corrente.setText(cor.toString());
+                                tensao.setText(ten.toString());
                             }
                             else{yea.reset();}
                             }}
