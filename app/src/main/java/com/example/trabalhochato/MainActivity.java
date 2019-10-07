@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -38,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         //Passar o parametro para onde será chamado
         Intent it = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         it.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        it.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        it.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getAvailableLocales());
         it.putExtra(RecognizerIntent.EXTRA_PROMPT, "!");
 
 
@@ -63,12 +65,9 @@ public class MainActivity extends AppCompatActivity {
         TextView corrente = findViewById(R.id.c);
         TextView tensao = findViewById(R.id.t);
 
-        switch (requestCode) {
+        if (requestCode == REQ_CODE_SPEAKER_INPUT && data != null) {
 
-            case REQ_CODE_SPEAKER_INPUT: {
-
-                if (requestCode == RESULT_OK && data != null) {
-
+                {
                     //recebe a mensagem do intent e adiciona no array
                     ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 
@@ -80,18 +79,19 @@ public class MainActivity extends AppCompatActivity {
                         Log.i("Falar o calculo", mensagem);
                     int porn = 0;
                     String[] dammit = result.get(0).split(" ");
+
                         for (int i = 0; porn < 2 && i < dammit.length; i++) {
                             switch (dammit[i].toLowerCase()){
-                                case "potência": {
+                                case "testing": {
+                                if(porn<2) {
+                                    Double valor = Double.parseDouble(dammit[i++]);
+                                    yea.setPotencia(valor);
+                                    potencia.setText(dammit[i++]);
+                                    porn++;
+                                }break;}
+                            case "potato": {
                                 if(porn<2){
-                                Double valor = Double.parseDouble(dammit[i++]);
-                                yea.setPotencia(valor);
-                                potencia.setText(dammit[i++]);
-                                porn++;
-                            }break;}
-                            case "tensão": {
-                                if(porn<2){
-                                Double valor = Double.parseDouble(dammit[i++]);
+                                Double valor = Double.parseDouble(dammit[i+1]);
                                 yea.setTensao(valor);
                                 tensao.setText(dammit[i++]);
                                 porn++;
@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
                                 resistencia.setText(dammit[i++]);
                                 porn++;
                             }break;}
-                            case "calcular": {
+                            case "calculate": {
                             if(porn==2){
                                 Double pot = yea.getPotencia();
                                 Double res = yea.getResistencia();
@@ -130,7 +130,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }
-    }
 
     public void Falar(View view) {
         promptSpeechInput();
