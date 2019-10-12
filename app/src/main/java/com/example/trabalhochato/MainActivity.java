@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                     //passa a mensagem capitada no array e passa para a Satring
                     //mostrar a mensagem
 
-                    while (true) {
+                    //while (true) {
                         String mensagem = "";
                         Log.i("Falar o calculo", mensagem);
                     int porn = 0;
@@ -82,18 +82,19 @@ public class MainActivity extends AppCompatActivity {
 
                         for (int i = 0; porn < 2 && i < dammit.length; i++) {
                             switch (dammit[i].toLowerCase()){
-                                case "testing": {
+                                case "potência": {
                                 if(porn<2) {
-                                    Double valor = Double.parseDouble(dammit[i++]);
+                                    Double valor = Double.parseDouble(dammit[i+1]);
+                                    System.out.println(valor);
                                     yea.setPotencia(valor);
-                                    potencia.setText(dammit[i++]);
+                                    potencia.setText(dammit[i+1]);
                                     porn++;
                                 }break;}
-                            case "potato": {
+                            case "tensão": {
                                 if(porn<2){
                                 Double valor = Double.parseDouble(dammit[i+1]);
                                 yea.setTensao(valor);
-                                tensao.setText(dammit[i++]);
+                                tensao.setText(dammit[i+1]);
                                 porn++;
                             }break;}
                             case "corrente": {
@@ -110,8 +111,8 @@ public class MainActivity extends AppCompatActivity {
                                 resistencia.setText(dammit[i++]);
                                 porn++;
                             }break;}
-                            case "calculate": {
-                            if(porn==2){
+                            case "calcular": {
+                           // if(porn==2){
                                 Double pot = yea.getPotencia();
                                 Double res = yea.getResistencia();
                                 Double cor = yea.getCorrente();
@@ -121,15 +122,15 @@ public class MainActivity extends AppCompatActivity {
                                 resistencia.setText(res.toString());
                                 corrente.setText(cor.toString());
                                 tensao.setText(ten.toString());
-                            }
-                            else{yea.reset();}
+                            //}
+                            //else{yea.reset();}
                             }}
                         }
                     }
                 }
 
             }
-        }
+       // }
 
     public void Falar(View view) {
         promptSpeechInput();
