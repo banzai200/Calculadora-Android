@@ -22,25 +22,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
     }
-    TextView potencia = findViewById(R.id.p);
-    TextView resistencia = findViewById(R.id.r);
-    TextView corrente = findViewById(R.id.c);
-    TextView tensao = findViewById(R.id.t);
-    private void letsRocknRoll(String fuck)
-    {
-        if(fuck.
-                equals("calcular")){
-            yea.reset();
-            return;
-        }
-        yea.reset();
-
-    }
-    //Mostra entrada de dialogo do google speake
+    //Mostra entrada de dialogo do google speaker
     private void promptSpeechInput() {
-
 
         //Passar o parametro para onde será chamado
         Intent it = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
@@ -71,8 +55,16 @@ public class MainActivity extends AppCompatActivity {
                 {
                     //recebe a mensagem do intent e adiciona no array
                     ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-
-                    //passa a mensagem capitada no array e passa para a Satring
+                    TextView potencia = findViewById(R.id.p);
+                    TextView resistencia = findViewById(R.id.r);
+                    TextView corrente = findViewById(R.id.c);
+                    TextView tensao = findViewById(R.id.t);
+                    yea.reset();
+                    potencia.setText("");
+                    resistencia.setText("");
+                    corrente.setText("");
+                    tensao.setText("");
+                    //passa a mensagem captada no array e passa para a String
                     //mostrar a mensagem
 
                     //while (true) {
@@ -118,6 +110,10 @@ public class MainActivity extends AppCompatActivity {
                                 Double res = yea.getResistencia();
                                 Double cor = yea.getCorrente();
                                 Double ten = yea.getTensao();
+                                potencia.setText(pot.toString());
+                                resistencia.setText(res.toString());
+                                corrente.setText(cor.toString());
+                                tensao.setText(ten.toString());
                             if(porn!=2){
                                 yea.reset();
                                 potencia.setText("ERRO DE ELEMENTOS, ESPERADO 2");
@@ -135,11 +131,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void Falar(View view) {
 
-        yea.reset();
-        potencia.setText("");
-        resistencia.setText("");
-        corrente.setText("");
-        tensao.setText("");
+
         promptSpeechInput();
     }
 }
