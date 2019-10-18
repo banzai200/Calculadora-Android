@@ -16,17 +16,22 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     private Calculus yea = new Calculus();
-
-
     private final int REQ_CODE_SPEAKER_INPUT = 100;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
     }
+    TextView potencia = findViewById(R.id.p);
+    TextView resistencia = findViewById(R.id.r);
+    TextView corrente = findViewById(R.id.c);
+    TextView tensao = findViewById(R.id.t);
     private void letsRocknRoll(String fuck)
     {
-        if(fuck.equals("calcular")){
+        if(fuck.
+                equals("calcular")){
             yea.reset();
             return;
         }
@@ -60,10 +65,6 @@ public class MainActivity extends AppCompatActivity {
 
         //
         super.onActivityResult(requestCode, resultCode, data);
-        TextView potencia = findViewById(R.id.p);
-        TextView resistencia = findViewById(R.id.r);
-        TextView corrente = findViewById(R.id.c);
-        TextView tensao = findViewById(R.id.t);
 
         if (requestCode == REQ_CODE_SPEAKER_INPUT && data != null) {
 
@@ -76,54 +77,54 @@ public class MainActivity extends AppCompatActivity {
 
                     //while (true) {
                         String mensagem = "";
-                        Log.i("Falar o calculo", mensagem);
+                        Log.i("Falar o calculo", result.get(0));
                     int porn = 0;
                     String[] dammit = result.get(0).split(" ");
 
-                        for (int i = 0; porn < 2 && i < dammit.length; i++) {
+                        for (int i = 0; porn <= 3 && i < dammit.length; i++) {
                             switch (dammit[i].toLowerCase()){
                                 case "potência": {
-                                if(porn<2) {
+                                if(porn<2 && i+1 < dammit.length) {
                                     Double valor = Double.parseDouble(dammit[i+1]);
                                     System.out.println(valor);
                                     yea.setPotencia(valor);
                                     potencia.setText(dammit[i+1]);
                                     porn++;
-                                }break;}
+                                }
+                                break;}
                             case "tensão": {
-                                if(porn<2){
+                                if(porn<2 && i+1 < dammit.length){
                                 Double valor = Double.parseDouble(dammit[i+1]);
                                 yea.setTensao(valor);
                                 tensao.setText(dammit[i+1]);
                                 porn++;
                             }break;}
                             case "corrente": {
-                                if(porn<2){
-                                Double valor = Double.parseDouble(dammit[i++]);
+                                if(porn<2 && i+1 < dammit.length){
+                                Double valor = Double.parseDouble(dammit[i+1]);
                                 yea.setCorrente(valor);
-                                corrente.setText(dammit[i++]);
+                                corrente.setText(dammit[i+1]);
                                 porn++;
                             }break;}
                             case "resistência": {
-                                if(porn<2){
-                                Double valor = Double.parseDouble(dammit[i++]);
+                                if(porn<2 && i+1 < dammit.length){
+                                Double valor = Double.parseDouble(dammit[i+1]);
                                 yea.setResistencia(valor);
-                                resistencia.setText(dammit[i++]);
+                                resistencia.setText(dammit[i+1]);
                                 porn++;
                             }break;}
                             case "calcular": {
-                           // if(porn==2){
                                 Double pot = yea.getPotencia();
                                 Double res = yea.getResistencia();
                                 Double cor = yea.getCorrente();
                                 Double ten = yea.getTensao();
-
-                                potencia.setText(pot.toString());
-                                resistencia.setText(res.toString());
-                                corrente.setText(cor.toString());
-                                tensao.setText(ten.toString());
-                            //}
-                            //else{yea.reset();}
+                            if(porn!=2){
+                                yea.reset();
+                                potencia.setText("ERRO DE ELEMENTOS, ESPERADO 2");
+                                resistencia.setText("ERRO DE ELEMENTOS, ESPERADO 2");
+                                corrente.setText("ERRO DE ELEMENTOS, ESPERADO 2");
+                                tensao.setText("ERRO DE ELEMENTOS, ESPERADO 2");
+                                }
                             }}
                         }
                     }
@@ -133,6 +134,12 @@ public class MainActivity extends AppCompatActivity {
        // }
 
     public void Falar(View view) {
+
+        yea.reset();
+        potencia.setText("");
+        resistencia.setText("");
+        corrente.setText("");
+        tensao.setText("");
         promptSpeechInput();
     }
 }
